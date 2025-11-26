@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Nuevo turno</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Place Id</mat-label>
+      <input matInput formControlName="place_id" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha y Hora</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="appointment_at">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de servicio</mat-label>
+      <input matInput formControlName="service_type">
+    </mat-form-field>
+
+    <!-- CONTACT -->
+    <div formGroupName="contact">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="appointmentForm.invalid">
+      Crear turno
+    </button>
+
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</div>
