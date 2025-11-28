@@ -56,7 +56,7 @@ export class AppointmentsCreate implements OnInit {
         make: [null],
         model: [null],
         year: [null, Validators.pattern('^[0-9]{4}$')],
-        license_plate: [null, Validators.pattern('^[A-Z0-9-]+$')]
+        license_plate: [null, Validators.pattern(/^[A-Z]{3}[0-9]{3}$|^[A-Z]{2}[0-9]{3}[A-Z]{2}$/)]
       })
     });
 
