@@ -9,6 +9,9 @@
       <input matInput [matDatepicker]="picker" formControlName="appointment_date" [min]="minDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="appointmentDate?.hasError('required')">
+        Date is required
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="half">
@@ -18,12 +21,18 @@
         <mat-option value="12:00">12:00</mat-option>
         <mat-option value="15:00">15:00</mat-option>
       </mat-select>
+      <mat-error *ngIf="appointmentTime?.hasError('required')">
+        Time is required
+      </mat-error>
     </mat-form-field>
     </div>
 
     <mat-form-field appearance="fill">
       <mat-label>Service type</mat-label>
       <input matInput formControlName="service_type">
+      <mat-error *ngIf="serviceType?.hasError('required')">
+        Service type is required
+      </mat-error>
     </mat-form-field>
 
     <mat-divider></mat-divider>
@@ -37,6 +46,9 @@
             {{ workshop.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="workshop?.hasError('required')">
+          Workshop is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -62,16 +74,29 @@
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">
+        <mat-error *ngIf="contactName?.hasError('required')">
+          Name is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email">
+        <mat-error *ngIf="contactEmail?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="contactEmail?.hasError('email')">
+          Please enter a valid email address.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Whatsapp</mat-label>
+        <mat-label>Phone</mat-label>
         <input matInput formControlName="phone">
+        <mat-error *ngIf="contactPhone?.hasError('pattern')">
+          Only numbers, +, ( ) are allowed
+        </mat-error>
+  
       </mat-form-field>
     </div>
 
@@ -92,11 +117,17 @@
       <mat-form-field appearance="fill">
         <mat-label>Year</mat-label>
         <input matInput formControlName="year">
+        <mat-error *ngIf="vehicleYear?.hasError('pattern')">
+          The year must be a 4-digit number (e.g. 2020).
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>License plate</mat-label>
         <input matInput formControlName="license_plate">
+        <mat-error *ngIf="vehicleLicensePlate?.hasError('pattern')">
+          Valid formats: ABC123, AB123CD, 123ABC.
+        </mat-error>
       </mat-form-field>
     </div>
 

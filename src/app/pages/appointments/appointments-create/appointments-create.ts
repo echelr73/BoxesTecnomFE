@@ -46,11 +46,9 @@ export class AppointmentsCreate implements OnInit {
         phone: [{ value: '', disabled: true }],
       }),
 
-
-
       contact: this.fb.group({
         name: ['', Validators.required],
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
         phone: [null, Validators.pattern('^[0-9()+]+$')]
       }),
 
@@ -72,6 +70,41 @@ export class AppointmentsCreate implements OnInit {
         });
       }
     });
+  }
+  get appointmentDate() {
+    return this.appointmentForm.get('appointment_date');
+  }
+
+  get appointmentTime() {
+    return this.appointmentForm.get('appointment_time');
+  }
+
+  get serviceType() {
+    return this.appointmentForm.get('service_type');
+  }
+
+  get workshop() {
+    return this.appointmentForm.get('workshop.place_id');
+  }
+
+  get contactName() {
+    return this.appointmentForm.get('contact.name');
+  }
+
+  get contactPhone() {
+    return this.appointmentForm.get('contact.phone');
+  }
+  
+  get contactEmail() {
+    return this.appointmentForm.get('contact.email');
+  }
+
+  get vehicleYear() {
+    return this.appointmentForm.get('vehicle.year');
+  }
+
+  get vehicleLicensePlate() {
+    return this.appointmentForm.get('vehicle.license_plate');
   }
 
   ngOnInit() {
