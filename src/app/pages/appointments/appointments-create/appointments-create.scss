@@ -1,0 +1,20 @@
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+    display: flex;
+    gap: 16px;       // espacio entre campos
+    width: 100%;
+  }
+  
+  .half {
+    flex: 1;         // hace que cada uno ocupe 50%
+  }
+  

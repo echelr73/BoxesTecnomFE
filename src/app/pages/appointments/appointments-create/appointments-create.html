@@ -1,29 +1,66 @@
-<h2 mat-dialog-title>Nuevo turno</h2>
+<h2 mat-dialog-title>New shift</h2>
 
 <div mat-dialog-content>
-  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Place Id</mat-label>
-      <input matInput formControlName="place_id" type="number">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Fecha y Hora</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="appointment_at">
+    <div class="row">
+    <mat-form-field appearance="fill" class="half">
+      <mat-label>Appointment date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="appointment_date" [min]="minDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
+    <mat-form-field appearance="fill" class="half">
+      <mat-label>Appointment time</mat-label>
+      <mat-select formControlName="appointment_time">
+        <mat-option value="09:00">09:00</mat-option>
+        <mat-option value="12:00">12:00</mat-option>
+        <mat-option value="15:00">15:00</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
     <mat-form-field appearance="fill">
-      <mat-label>Tipo de servicio</mat-label>
+      <mat-label>Service type</mat-label>
       <input matInput formControlName="service_type">
     </mat-form-field>
 
-    <!-- CONTACT -->
-    <div formGroupName="contact">
+    <mat-divider></mat-divider>
+
+    <div formGroupName="workshop" class="formGroup">
+      <mat-label>Workshop</mat-label>
       <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
+        <mat-label>Place</mat-label>
+        <mat-select matInput formControlName="place_id" required>
+          <mat-option *ngFor="let workshop of workshops" [value]="workshop.id">
+            {{ workshop.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Whatsapp</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div formGroupName="contact" class="formGroup">
+      <mat-label>Contact</mat-label>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
         <input matInput formControlName="name">
       </mat-form-field>
 
@@ -33,19 +70,41 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Teléfono</mat-label>
+        <mat-label>Whatsapp</mat-label>
         <input matInput formControlName="phone">
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="appointmentForm.invalid">
-      Crear turno
-    </button>
+    <mat-divider></mat-divider>
+
+    <div formGroupName="vehicle" class="formGroup">
+      <mat-label>Vehicle</mat-label>
+      <mat-form-field appearance="fill">
+        <mat-label>Make</mat-label>
+        <input matInput formControlName="make">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Model</mat-label>
+        <input matInput formControlName="model">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Year</mat-label>
+        <input matInput formControlName="year">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>License plate</mat-label>
+        <input matInput formControlName="license_plate">
+      </mat-form-field>
+    </div>
 
   </form>
 </div>
 
 <div mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="appointmentForm.invalid" (click)="save()">Create
+    Appointment</button>
 </div>

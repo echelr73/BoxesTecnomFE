@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Workshop } from '../../../shared/models/workshop.model';
 import { WorkshopsService } from '../../../services/workshopsService';
 import { Appointment } from '../../../shared/models/appointment.model';
@@ -44,7 +44,7 @@ export class AppointmentsList implements OnInit {
     this.appointmentsService.getAppointments().subscribe({
       next: (data) => {
         this.appointments = data.sort((a, b) => 
-          new Date(a.appointment_At).getTime() - new Date(b.appointment_At).getTime()
+          new Date(a.appointment_at).getTime() - new Date(b.appointment_at).getTime()
         );
         this.cd.detectChanges();
       },
@@ -65,4 +65,17 @@ export class AppointmentsList implements OnInit {
   getWorkshop(placeId: number): Workshop | undefined {
     return this.workshops.find(w => w.id === placeId);
   }
+
+  getWorkshopTooltip(placeId: number): string {
+    const workshop = this.getWorkshop(placeId);
+    if (!workshop || (!workshop.phone && !workshop.email) ) return 'No workshop information available';
+  
+    const parts: string[] = [];
+  
+    if (workshop.phone) parts.push(`Phone: ${workshop.phone}`);
+    if (workshop.email) parts.push(`Email: ${workshop.email}`);
+  
+    return parts.join(' | ');
+  }
+  
 }

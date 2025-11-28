@@ -1,10 +1,8 @@
 <mat-toolbar color="primary">
-    <span>My Appointments</span>
-    <div class="toolbar">
-        <button mat-raised-button color="primary" (click)="openCreateDialog()">
-            New shift
-        </button>
-    </div>
+    <span>Appointments</span>
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        New shift
+    </button>
 </mat-toolbar>
 
 <div class="container">
@@ -13,31 +11,37 @@
         <mat-card-header>
 
             <mat-card-title>
-                {{ appointment.appointment_At | date:'short' }}
-                
+                {{ appointment.appointment_at | date:'short' }}
+
             </mat-card-title>
 
             <mat-card-subtitle>
-                <span [matTooltip]="getWorkshop(appointment.place_Id)?.formatted_address + 
-              ' | Phone: ' + getWorkshop(appointment.place_Id)?.phone +
-              ' | Email: ' + getWorkshop(appointment.place_Id)?.email
-            ">
-                    Workshop: {{ getWorkshop(appointment.place_Id)?.name || 'Unknown' }}
-                </span>
+                <p><strong>Service type:</strong> {{ appointment.service_type }}</p>
             </mat-card-subtitle>
 
         </mat-card-header>
 
         <mat-card-content>
-
-            <p><strong>Service type:</strong> {{ appointment.service_Type }}</p>
-            <p><strong>Contact:</strong> {{ appointment.contact.name }} — {{ appointment.contact.email }}</p>
-
-            <p *ngIf="appointment.vehicle">
-                <strong>Vehicle:</strong>
-                {{ appointment.vehicle.make }} {{ appointment.vehicle.model }} ({{ appointment.vehicle.license_Plate }})
+            <p><strong>Workshop:</strong> {{ getWorkshop(appointment.place_id)?.name }} - {{ getWorkshop(appointment.place_id)?.formatted_address }}
+                <mat-icon matTooltip="{{ getWorkshopTooltip(appointment.place_id) }}"
+                    [matTooltipClass]="'tooltip'">info</mat-icon>
             </p>
 
+
+            <p><strong>Contact:</strong> {{ appointment.contact.name }} — {{ appointment.contact.email }}<span
+                    *ngIf="appointment.contact.phone"> - {{appointment.contact.phone}}</span></p>
+
+            <p *ngIf="appointment?.vehicle?.make || appointment?.vehicle?.model || appointment?.vehicle?.license_Plate">
+                <strong>Vehicle:</strong>
+                {{ appointment.vehicle?.make }} {{ appointment.vehicle?.model }} - {{appointment.vehicle?.year}} ({{
+                appointment.vehicle?.license_Plate }})
+            </p>
+
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content *ngIf="appointments.length === 0">
+            No appointments found.
         </mat-card-content>
     </mat-card>
 </div>
